@@ -1,0 +1,14 @@
+server:
+  port: 8012
+
+spring:
+  application:
+    name: authentication
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8011/eureka/
+    registerWithEureka: true
+    fetchRegistry: true
+    should-unregister-on-shutdown: true
