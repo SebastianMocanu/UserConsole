@@ -4,6 +4,34 @@ server:
 spring:
   application:
     name: gateway
+  security:
+    oauth2:
+#ResourceServer
+      resourceserver:
+        jwt:
+          issuer-uri: http://auth-server:9000
+#OAuth client
+      client:
+        registration:
+          articles-client-oidc:
+            provider: spring
+            client-id: articles-client
+            client-secret: secret
+            authorization-grant-type: authorization_code
+            redirect-uri: "http://127.0.0.1:8010/login/oauth2/code/{registrationId}"
+            scope: openid
+            client-name: articles-client-oidc
+          articles-client-authorization-code:
+            provider: spring
+            client-id: articles-client
+            client-secret: secret
+            authorization-grant-type: authorization_code
+            redirect-uri: "http://127.0.0.1:8010/authorized"
+            scope: articles.read
+            client-name: articles-client-authorization-code
+        provider:
+          spring:
+            issuer-uri: http://auth-server:9000
 
 eureka:
   client:
@@ -12,3 +40,4 @@ eureka:
     registerWithEureka: true
     fetchRegistry: true
     should-unregister-on-shutdown: true
+
